@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import html
-import json
-from typing import Dict, List, Optional, Tuple
-from urllib.parse import urlencode, urljoin, quote
+from typing import Dict, List, Optional
+from urllib.parse import urljoin, quote
 
 from .cleaner import clean_text, restore_paragraphs_from_html
 from .http_client import HttpClient
