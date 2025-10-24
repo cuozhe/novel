@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "priority": 100,
+  "parser_backend": "bs4",
+  "site": {
+    "name": "ExampleSite",
+    "base_url": "https://example.com",
+    "encoding": "utf-8"
+  },
+  "search": {
+    "method": "get",
+    "url_template": "https://example.com/search?q={keyword}",
+    "keyword_encoding": "url-encode",
+    "list_selector": {"css": "div.result-item"},
+    "sub": {
+      "title": {"css": ".title a", "attr": "text"},
+      "author": {"css": ".author", "attr": "text"},
+      "cover": {"css": "img.cover", "attr": "src"},
+      "detail": {"css": ".title a", "attr": "href"}
+    }
+  },
+  "chapters": {
+    "list_selector": {"css": "ul.chapters li"},
+    "title_selector": {"css": "a", "attr": "text"},
+    "link_selector": {"css": "a", "attr": "href"},
+    "order": "asc",
+    "dedupe_key": "both"
+  },
+  "content": {
+    "block_selector": {"css": "div.content"},
+    "filters": ["本章未完，点击下一页"],
+    "next_page_selector": {"css": "a.next", "attr": "href"},
+    "paragraph_strategy": {
+      "br_to_newline": true,
+      "compress_empty_lines": true
+    }
+  }
+}
