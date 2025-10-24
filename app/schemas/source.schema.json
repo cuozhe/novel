@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/novel-source.schema.json",
+  "title": "Novel Source Config",
+  "type": "object",
+  "required": ["site", "search", "chapters", "content"],
+  "properties": {
+    "version": {"type": "string"},
+    "priority": {"type": "integer"},
+    "parser_backend": {"type": "string"},
+    "site": {
+      "type": "object",
+      "required": ["name", "base_url"],
+      "properties": {
+        "name": {"type": "string"},
+        "base_url": {"type": "string"},
+        "encoding": {"type": "string"}
+      }
+    },
+    "search": {
+      "type": "object",
+      "required": ["url_template", "list_selector", "sub"],
+      "properties": {
+        "method": {"type": "string"},
+        "url_template": {"type": "string"},
+        "keyword_encoding": {"type": "string"},
+        "list_selector": {
+          "$ref": "#/definitions/selector"
+        },
+        "sub": {
+          "type": "object",
+          "required": ["title", "detail"],
+          "properties": {
+            "title": {"$ref": "#/definitions/selector"},
+            "author": {"$ref": "#/definitions/selector"},
+            "cover": {"$ref": "#/definitions/selector"},
+            "detail": {"$ref": "#/definitions/selector"}
+          }
+        }
+      }
+    },
+    "chapters": {
+      "type": "object",
+      "required": ["list_selector", "title_selector", "link_selector"],
+      "properties": {
+        "list_selector": {"$ref": "#/definitions/selector"},
+        "title_selector": {"$ref": "#/definitions/selector"},
+        "link_selector": {"$ref": "#/definitions/selector"},
+        "order": {"type": "string"},
+        "dedupe_key": {"type": "string"}
+      }
+    },
+    "content": {
+      "type": "object",
+      "required": ["block_selector"],
+      "properties": {
+        "block_selector": {"$ref": "#/definitions/selector"},
+        "filters": {"type": "array", "items": {"type": "string"}},
+        "next_page_selector": {"$ref": "#/definitions/selector"},
+        "paragraph_strategy": {"type": "object"}
+      }
+    }
+  },
+  "definitions": {
+    "selector": {
+      "type": "object",
+      "properties": {
+        "css": {"type": "string"},
+        "xpath": {"type": "string"},
+        "regex": {"type": "string"},
+        "attr": {"type": "string"},
+        "index": {"type": "integer"}
+      }
+    }
+  }
+}
